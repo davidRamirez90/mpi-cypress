@@ -15,7 +15,6 @@ import {CommonModule} from "@angular/common";
     TestFormComponent
   ],
   imports: [
-    CommonModule,
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
