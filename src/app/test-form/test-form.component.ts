@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, Validators} from "@angular/forms";
+import {bannedCompanyValidator} from "../validators/banned-company.validator";
+import {notNullAgeValidator} from "../validators/not-null-age.validator";
+
+interface AgeRange {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-test-form',
@@ -8,17 +15,25 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 })
 export class TestFormComponent implements OnInit {
 
-  formGroup = new FormGroup({
-    username: new FormControl('', {
-      validators: [Validators.required]
-    }),
-    password: new FormControl('', {
-      validators: [Validators.required]
-    })
-  });
+  ageRanges: Array<AgeRange> = [
+    {value: '0-18', viewValue: '0-18'},
+    {value: '19-25', viewValue: '19-25'},
+    {value: '26-35', viewValue: '26-35'},
+  ]
 
-  constructor() {
-  }
+  constructor(private fb: FormBuilder) {}
+
+  formGroup = this.fb.group({
+    username: ['',
+      [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ]
+    ],
+    company: ['',  [Validators.required, bannedCompanyValidator]],
+    age: [null, [notNullAgeValidator]],
+    password: ['', [Validators.required]]
+  });
 
   ngOnInit(): void {
   }

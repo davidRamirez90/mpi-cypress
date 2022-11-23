@@ -1,24 +1,71 @@
 <form data-cy="userForm" (ngSubmit)="submitForm()" [formGroup]="formGroup">
   <div class="form-field"
     [ngClass]="[
-      formGroup.get('username').dirty ? 'field-dirty' : 'field-pristine',
-      formGroup.get('username').valid ? 'field-valid' : 'field-invalid',
-      formGroup.get('username').touched ? 'field-touched' : 'field-untouched'
+      formGroup.controls.username.dirty ? 'field-dirty' : 'field-pristine',
+      formGroup.controls.username.valid ? 'field-valid' : 'field-invalid',
+      formGroup.controls.username.touched ? 'field-touched' : 'field-untouched'
     ]">
-    <label>Username</label>
-    <input data-cy="userInput" formControlName="username" placeholder="Choose a date" type="text">
+    <label for="username-input">Username</label>
+    <input id="username-input" data-cy="userInput" formControlName="username" placeholder="Type your username" type="text">
+    <ng-container *ngIf="formGroup.controls.username as userName">
+      <div
+        class="input-error"
+        *ngIf="userName.dirty && userName.hasError('required')">This field is required</div>
+      <div
+        class="input-error"
+        *ngIf="userName.dirty && userName.hasError('pattern')">The value you entered is not a valid email address</div>
+    </ng-container>
+  </div>
+
+  <div class="form-field"
+    [ngClass]="[
+      formGroup.controls.company.dirty ? 'field-dirty' : 'field-pristine',
+      formGroup.controls.company.valid ? 'field-valid' : 'field-invalid',
+      formGroup.controls.company.touched ? 'field-touched' : 'field-untouched'
+    ]">
+    <label for="company-input">Company</label>
+    <input id="company-input" data-cy="companyInput" formControlName="company" placeholder="Choose a company" type="text">
+    <ng-container *ngIf="formGroup.controls.company as company">
+      <div
+        class="input-error"
+        *ngIf="company.dirty && company.hasError('required')">This field is required</div>
+      <div
+        class="input-error"
+        *ngIf="company.dirty && company.hasError('bannedCompany')">This company is invalid</div>
+    </ng-container>
   </div>
 
   <div class="form-field" [ngClass]="[
-      formGroup.get('password').dirty ? 'field-dirty' : 'field-pristine',
-      formGroup.get('password').valid ? 'field-valid' : 'field-invalid',
-      formGroup.get('password').touched ? 'field-touched' : 'field-untouched'
+      formGroup.controls.age.dirty ? 'field-dirty' : 'field-pristine',
+      formGroup.controls.age.valid ? 'field-valid' : 'field-invalid',
+      formGroup.controls.age.touched ? 'field-touched' : 'field-untouched'
     ]">
-    <label>Password</label>
-    <input data-cy="passwordInput" formControlName="password" placeholder="Choose a date" type="password">
+    <label for="age-input">Age</label>
+    <select id="age-input" data-cy="ageSelect" formControlName="age">
+      <option value="null">Select an age</option>
+      <option *ngFor="let age of ageRanges" [value]="age.value">{{age.viewValue}}</option>
+    </select>
+    <ng-container *ngIf="formGroup.controls.age as ageSelector">
+      <div class="input-error" *ngIf="ageSelector.dirty && ageSelector.hasError('notNullAge')">This field is required</div>
+    </ng-container>
+  </div>
+
+  <div class="form-field" [ngClass]="[
+      formGroup.controls.password.dirty ? 'field-dirty' : 'field-pristine',
+      formGroup.controls.password.valid ? 'field-valid' : 'field-invalid',
+      formGroup.controls.password.touched ? 'field-touched' : 'field-untouched'
+    ]">
+    <label for="password-input">Password</label>
+    <input id="password-input" data-cy="passwordInput" formControlName="password" placeholder="Type your password" type="password">
+    <ng-container *ngIf="formGroup.controls.password as password">
+      <div
+        class="input-error"
+        *ngIf="password.dirty && password.hasError('required')">This field is required</div>
+    </ng-container>
   </div>
 
   <button data-cy="submitUserForm" [disabled]="formGroup.invalid" type="submit">Send</button>
 </form>
+
 
 <pre>{{formGroup.value | json}}</pre>
