@@ -1,3 +1,5 @@
+@import "theme";
+
 /* You can add global styles to this file, and also import other style files */
 
 :root {
@@ -31,6 +33,10 @@ input, select {
     box-shadow: inset 0 0 6px var(--border-color-highlight);
     border: 1px solid transparent !important;
   }
+}
+
+.fixed-height-grid-300 {
+  height: 300px;
 }
 
 /** BUTTON STYLES **/
@@ -114,3 +120,6 @@ label {
   color: var(--color-error);
   font-size: 10px;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
