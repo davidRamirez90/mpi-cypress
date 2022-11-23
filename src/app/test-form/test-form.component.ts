@@ -24,6 +24,7 @@ export class TestFormComponent implements OnInit {
   }
 
   submitForm() {
+    console.log('submitting form');
     console.log(this.formGroup.getRawValue());
   }
 

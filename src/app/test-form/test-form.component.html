@@ -1,10 +1,19 @@
 <form data-cy="userForm" (ngSubmit)="submitForm()" [formGroup]="formGroup">
-  <div class="form-field">
+  <div class="form-field"
+    [ngClass]="[
+      formGroup.get('username').dirty ? 'field-dirty' : 'field-pristine',
+      formGroup.get('username').valid ? 'field-valid' : 'field-invalid',
+      formGroup.get('username').touched ? 'field-touched' : 'field-untouched'
+    ]">
     <label>Username</label>
     <input data-cy="userInput" formControlName="username" placeholder="Choose a date" type="text">
   </div>
 
-  <div class="form-field">
+  <div class="form-field" [ngClass]="[
+      formGroup.get('password').dirty ? 'field-dirty' : 'field-pristine',
+      formGroup.get('password').valid ? 'field-valid' : 'field-invalid',
+      formGroup.get('password').touched ? 'field-touched' : 'field-untouched'
+    ]">
     <label>Password</label>
     <input data-cy="passwordInput" formControlName="password" placeholder="Choose a date" type="password">
   </div>
