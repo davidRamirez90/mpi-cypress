@@ -1,6 +1,6 @@
 import {HarnessLoader} from "@angular/cdk/testing";
 import {TestbedHarnessEnvironment} from "@angular/cdk/testing/testbed";
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {PblNgridModule} from "@pebula/ngrid";
 import {PblNgridHarness} from "@pebula/ngrid/testing";
 import { TableComponent } from './table.component';
@@ -13,19 +13,19 @@ describe('TableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        PblNgridModule.forRoot({}, []),
-        PblNgridMaterialModule
-      ],
-      declarations: [ TableComponent ]
-    }).compileComponents();
+        imports: [
+          PblNgridModule.forRoot({}, []),
+          PblNgridMaterialModule
+        ],
+        declarations: [ TableComponent ]
+      }).compileComponents();
 
     fixture = TestBed.createComponent(TableComponent);
     fixture.detectChanges();
 
     loader = TestbedHarnessEnvironment.loader(fixture);
     ngridHarness = await loader.getHarness(PblNgridHarness);
-  });
+  })
 
   it('should have the provided columns', async () => {
     const columnIds = await ngridHarness.getColumnIds();

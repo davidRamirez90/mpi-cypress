@@ -23,7 +23,7 @@
     "@angular/router": "14.2.7",
     "@pebula/ngrid": "^5.0.0",
     "@pebula/ngrid-material": "^5.0.0",
-    "rxjs": "~7.5.0",
+    "rxjs": "6.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
